@@ -120,7 +120,25 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  RTC_TimeTypeDef time;
+	  RTC_DateTypeDef date;
 
+	  if(is_button_pressed()) {
+		  RTC_TimeTypeDef new_time = {0};
+		  //Czekamy na zwolnienie przycisku:
+		  while(is_button_pressed()) {}
+
+		  new_time.Hours = 14;
+		  new_time.Minutes = 0;
+		  new_time.Seconds = 0;
+		  HAL_RTC_SetTime(&hrtc, &new_time, RTC_FORMAT_BIN);
+	  }
+
+	  HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
+	  HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
+
+	  printf("Aktualny czas: %02d:%02d:%02d\n", time.Hours, time.Minutes, time.Seconds);
+	  HAL_Delay(200);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
