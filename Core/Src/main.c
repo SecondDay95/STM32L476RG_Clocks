@@ -113,7 +113,12 @@ int main(void)
   MX_RTC_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  RTC_DateTypeDef today;
+  today.Year = 24;
+  today.Month = 7;
+  today.Date = 13;
+  today.WeekDay = RTC_WEEKDAY_SATURDAY;
+  HAL_RTC_SetDate(&hrtc, &today, RTC_FORMAT_BIN);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -137,7 +142,7 @@ int main(void)
 	  HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
 	  HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
 
-	  printf("Aktualny czas: %02d:%02d:%02d\n", time.Hours, time.Minutes, time.Seconds);
+	  printf("RTC: %04d-%02d-%02d, %02d:%02d:%02d\n", 2000 + date.Year, date.Month, date.Date, time.Hours, time.Minutes, time.Seconds);
 	  HAL_Delay(200);
     /* USER CODE END WHILE */
 
